@@ -1,29 +1,25 @@
 
 from flask import Flask, jsonify, render_template, request
+# from flask_mysqldb  import MySQL
 
-from flask_mysqldb  import MySQL
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost/dbeventos"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db = SQLAlchemy(app)
 
-
-
-#Conexión a MySql
-# app.config["MYSQL_USER"]="root"
-# app.config["MYSQL_PASSWORD"]="root"
-# app.config["MYSQL_DB"]="dbeventos"
-# app.config["MYSQL_PORT"]="3307"
-app.config["MYSQL_HOST"]="localhost"
-app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = "root"
-app.config["MYSQL_DB"] = "dbeventos"
-app.config["MYSQL_PORT"] = "3307"
-
-# app.config['MYSQL_CHARSET']='utf-8'
-# app.config["MYSQL_CURSORCLASS"] = "DictCursor"
-# app.config["MYSQL_CUSTOM_OPTIONS"] = {"ssl": {"ca": "/path/to/ca-file"}}
-
-
-conexion = MySQL(app) #establece la conexión de mi app con la db
+class Evento(db.Model):
+    eve_id = db.Column(db.Integer, primary_key=True)
+    eve_codigo = db.Column(db.Integer,nullable=False)
+    eve_nombre = db.Column(db.String(80), nullable=False)
+    eve_entradas = db.Column(db.Integer, nullable=False)
+    eve_fecha = db.Column(db.DateTime, nullable=False)
+    
+#Inserción en la base de datos, paso valores
+db.session.add(Evento(eve_codigo=10, eve_nombre='Exposicion', eve_entradas=100, eve_fecha='23-05-22'))
+db.session.commit() #confirmo inserción 
+evento = Evento.query.all() #inserta en la base de datos 
 
 @app.route('/index')
 def index():
@@ -35,21 +31,6 @@ def query_string():
 @app.route('/eventos')
 def eventos():
     data = {}
-   # try:
-    # print(f" que imprimer {conexion}")
-    
-    cursor = conexion.connection.cursor()
-    # print("antes del sql")
-    sql = "SELECT eve_codigo, eve_nombre, eve_entradas, eve_fecha FROM evento"
-    cursor.execute(sql)
-    print("antes del fetch")
-    eventos = cursor.fetchall()
-    print(f"que imprime {eventos}")
-    data['mensaje'] = 'Exito' 
-    #except Exception as ext:
-     #   data['mensaje'] = 'Erorr'
-    return jsonify(data)
-    # return render_template('eventos.html')
 
 @app.route('/busqueda')
 def busqueda():
