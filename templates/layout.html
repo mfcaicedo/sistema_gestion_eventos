@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="static/main.css">
+</head>
+<body>
+    <header> 
+
+        <div class="contenedor contenido-header">
+
+            <a href="./index">Gestión de Eventos</a>
+
+            <div class="contenido-navegacion">
+                <nav class="navegacion">
+                    <a href="./index">Eventos</a>
+                    <a href="./eventos">Mostrar Eventos</a>
+                    <a href="./busqueda">Buscar Eventos</a>
+
+                </nav>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    {% block body %}
+
+    {% endblock %}
+    
+
+
+    <footer class="contenedor contenido-footer">
+        <div class="footer">
+            <p class="copyright">Todos los derechos reservados - 2022 &copy; </p>
+        </div>
+    </footer>
+    
+
+</body>
+</html>

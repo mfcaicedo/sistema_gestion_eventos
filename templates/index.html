@@ -1,0 +1,33 @@
+{% extends './layout.html' %}
+{% block title %}Gestion Eventos{% endblock %}
+
+{% block body %}
+
+    <div class="contenedor">
+
+        <!-- Formulario de registro de los eventos -->
+        <h2>Formulario registro de eventos</h2>
+        <div class="contenido-formulario">
+            <form action="" class="formulario">
+                
+                <fieldset>
+                    <legend>Datos del evento</legend>
+                    <label for="codigo">Código:</label>
+                    <input type="number" name="codigo" class="codigo" id="codigo" placeholder="Código">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" class="nombre" id="nombre" placeholder="Nombre">
+                    <label for="entradas">Número de entradas al evento:</label>
+                    <input type="number" name="entradas" class="entradas" id="entradas" placeholder="Número de entradas">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" name="fecha" class="fecha" id="fecha" placeholder="Fecha del evento">
+                </fieldset>
+                <input type="submit" value="Registrar" class="registrar" id="registrar">
+
+
+            </form>
+        </div>
+
+
+    </div>
+
+{% endblock %}
