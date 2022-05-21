@@ -1,14 +1,18 @@
 
 from ast import Try
-from flask import Blueprint, Flask, flash, jsonify, render_template, request
+from flask import Blueprint, Flask, flash, jsonify, render_template, request, redirect ,url_for, flash
 
 from flask_sqlalchemy import SQLAlchemy
 from models.evento import Evento
 
+#coneccion a mysql
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@localhost/dbeventos"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root@127.0.0.1/dbeventos"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+
+#iniciamos la sesion para enviar mensajes
+app.secret_key ='myclavesecreta'
 
 with app.app_context():
     db.create_all()
@@ -34,20 +38,50 @@ def formulario():
 def insertar():
     try:
         datos = request.form
-        #Creo objeto Evento 
+         #Creo objeto Evento 
         objEvento = Evento(datos['codigo'], datos['nombre'], datos['entradas'], datos['fecha'])
         #Inserto objeto de evento a la sesion, (paso valores)
         db.session.add(objEvento)
         db.session.commit() #confirmo inserción 
         # evento = objEvento.query.all() #guardo en la db 
-        
-        return "correcto" 
+        #return "correcto"
+        flash('evento creado satisfactoriamente')        
     except Exception as ex:
-        return "error" 
+        return "error"
 
 @app.route('/busqueda')
 def busqueda():
     return render_template('busqueda.html')
+
+@app.route('/buscar', methods=['POST'])
+def buscar():
+    try:
+        datos = request.form
+        #tomamos el valor del campo a buscar
+        nombreEvento = datos['nombreEven']
+
+        print('este es el nombre del evento\n')
+        print(nombreEvento)
+
+        #EventoResult =  Evento.query.filter_by(eve_nombre='ttt').first()
+        EventoResult =  Evento.query.filter_by(eve_nombre=nombreEvento).first()
+
+        if EventoResult:
+            #print('este es el evnto \n')
+            #print("codigo: " + str(EventoResult.eve_codigo) + " nombre: " + EventoResult.eve_nombre + " numero entradas: " + str(EventoResult.eve_entradas) + " fecha:" + str(EventoResult.eve_fecha))
+            respuesta = "codigo: " + str(EventoResult.eve_codigo) + " nombre: " + EventoResult.eve_nombre + " numero entradas: " + str(EventoResult.eve_entradas) + " fecha:" + str(EventoResult.eve_fecha)
+            flash(respuesta)
+        else:
+            #print('no se encontro evento')
+            respuesta = 'No se encontro evento'
+            flash(respuesta)
+            #return respuesta
+
+        #flash('evento econtrado satisfactoriamente')
+        return redirect(url_for('busqueda'))  
+    except Exception as ex:
+        #return "error"
+        return ex
 
 @app.route('/reservar')
 def reservar():

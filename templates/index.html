@@ -6,6 +6,17 @@
     <div class="contenedor">
         <h2>Listado de eventos</h2>
 
+        <div class="mensaje">
+            <!--  mostramos el mensaje -->
+            {%  with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+            {% for mensaje in mensajes  %}
+            <p>{{ mensaje }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+
         <div class="contenedor contenido-eventos">
             <table class="tabla-eventos">
                 <thead>
