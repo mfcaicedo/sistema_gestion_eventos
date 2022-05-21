@@ -100,11 +100,60 @@ div.contenido-formulario .formulario{
 /**
 FOOTER
 */
-footer .footer{
+.contenido-footer{
     background-color: #3666A7;
-    position: fixed;
-    left:0px;
-    bottom:0px;
+}
+footer .footer{
+    position: absolute;
+    bottom: 0;
+    /* left: 0;   */
+
+    background-color: #3666A7;
     width:100%;
-    margin: 2rem 2rem 0rem 0rem;
+    margin: 0;
+    padding: 1.7rem;
+}
+.footer p{
+    margin: 0;
+}
+
+/**
+TABLA EVENTOS
+*/
+div .contenido-eventos{
+    overflow: scroll;
+}
+div .tabla-eventos{
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    font-size: 2rem;
+    text-align: center;
+}
+div .tabla-eventos thead {
+    background-color: #3666A7;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+div .tabla-eventos thead th, div .tabla-eventos tbody td{
+    padding: 1rem;
+}
+div .tabla-eventos tbody{
+    background-color: #dbe1e9;
+}
+
+/**
+BUSQUEDA
+*/
+.buscador{
+    width: 100%;
+    height: 2.6rem;
+    padding: 2rem;
+    border: 1px solid #c7d0db;
+    border-radius: 6px;
+}
+.sombra-buscador{
+    -webkit-box-shadow: -12px 10px 40px -6px rgba(0,0,0,0.5);
+    -moz-box-shadow: -12px 10px 40px -6px rgba(0,0,0,0.5);
+    box-shadow: -12px 10px 40px -6px rgba(0,0,0,0.5);
 }
