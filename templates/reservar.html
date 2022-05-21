@@ -1,0 +1,45 @@
+
+{% extends './layout.html' %}
+{% block title %}Comprar entrada{% endblock %}
+
+{% block body %}
+
+    <div class="contenedor">
+
+        <!-- Formulario de registro de los eventos -->
+        <h2>Comprar entrada</h2>
+        
+        <div class="contenido-formulario">
+            <div class="mensaje">
+                <!--  mostramos el mensaje -->
+                {%  with mensajes = get_flashed_messages() %}
+                {% if mensajes %}
+                {% for mensaje in mensajes  %}
+                <p>{{ mensaje }}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
+            <form action="/comprar" class="formulario" method="POST">
+                
+                <fieldset>
+                    <legend>Datos del evento</legend>
+                    <label for="codigo">Código evento:</label>
+                    <input type="number" name="codigo_evento" class="codigo" id="codigo" placeholder="Código" required>
+                    <label for="entradas">Número de entradas a comprar:</label>
+                    <input type="number" name="num_entradas" class="entradas" id="entradas" placeholder="Número de entradas" required>
+                    <input type="hidden" name="fecha" class="fecha" id="fecha" placeholder="Fecha del evento" required>
+                </fieldset>
+                <input type="submit" value="Registrar" class="registrar" id="registrar">
+
+
+            </form>
+        </div>
+        <div class="noticias">
+            <p>Próximos eventos</p>
+        </div>
+
+
+    </div>
+
+{% endblock %}

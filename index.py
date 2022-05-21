@@ -1,6 +1,8 @@
 
 from ast import Try
 from flask import Blueprint, Flask, flash, jsonify, render_template, request, redirect ,url_for, flash
+from datetime import date, timedelta
+
 
 from flask_sqlalchemy import SQLAlchemy
 from models.evento import Evento
@@ -86,6 +88,51 @@ def buscar():
 @app.route('/reservar')
 def reservar():
     return render_template('reservar.html')
+
+@app.route('/comprar', methods=['POST'])
+def comprar():
+    try:
+        datos = request.form
+        # tomamos el valor del campo a buscar
+        codigoEvento = datos['codigo_evento']
+        numEntradas = datos['num_entradas']
+        fecha = '21/05/2022'
+
+        # verificamos que el codigo del evento exista
+        EventoResult = Evento.query.filter_by(eve_codigo=int(codigoEvento)).first()
+        
+        
+        print('este es el evento\n')
+        print(EventoResult)
+
+        if EventoResult:
+            # si existe el evento desconamos los puestos
+            EventoResult.eve_entradas = (EventoResult.eve_entradas - int(numEntradas))
+            print('estas son las entradas\n')
+            print(EventoResult.eve_entradas)
+            #antes de modificar miramos si la fecha de compra es menor al del evento
+            today = date.today()
+            fechaevento = EventoResult.eve_fecha - timedelta(days=1)
+
+            print('fecha es menor a la compra')
+            if today < fechaevento:
+                db.session.merge(EventoResult)
+                db.session.commit() #confirmo inserción 
+                flash('Reserva exitosa')
+            else:
+                flash('No se permite reservar voletas en esta fecha')
+                return redirect(url_for('reservar'))
+        else:
+            # mandamos el mensaje que no existe el evento con ese codigo
+            flash('No exsite evento con el codigo ingresado')
+
+        #flash('evento econtrado satisfactoriamente')
+        return redirect(url_for('reservar'))
+
+    except Exception as ex:
+        # return "error"
+        return ex
+    
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
