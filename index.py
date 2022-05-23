@@ -48,6 +48,7 @@ def insertar():
         # evento = objEvento.query.all() #guardo en la db 
         #return "correcto"
         flash('evento creado satisfactoriamente')        
+        return redirect(url_for('index'))  
     except Exception as ex:
         return "error"
 
