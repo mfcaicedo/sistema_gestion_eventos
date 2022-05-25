@@ -8,38 +8,22 @@
     <h2>Eventos</h2>
     <form action="/buscar" method="POST">
         <input type="text" id="buscar" name="nombreEven" class="buscador sombra-buscador" placeholder="Buscar eventos">
-        <button type="submit" style="margin-top: 1%; background-color: lightblue; padding: 10px 20px 10px 20px; border-radius: 10px; cursor: pointer;">Buscar</button>
+        <button class="boton-buscar" type="submit">Buscar</button>
     </form>
     
-
     <div class="contenido-resultados">
         <h3>Resultado de la busqueda</h3>
 
         <div class="mensaje">
             <!--  mostramos el mensaje -->
-            {%  with mensajes = get_flashed_messages() %}
+            {% with mensajes = get_flashed_messages() %}
             {% if mensajes %}
             {% for mensaje in mensajes  %}
-            <p style="font-size: 17pt;">{{ mensaje }}</p>
+            <p class="p-mensaje">{{ mensaje }}</p>
             {% endfor %}
             {% endif %}
             {% endwith %}
         </div>
-
-        <!--<ul>
-            <li>
-                <p></p>
-            </li>
-            <li>
-                <p></p>
-            </li>
-            <li>
-                <p></p>
-            </li>
-            <li>
-                <p></p>
-            </li>
-        </ul>-->
 
     </div>
 

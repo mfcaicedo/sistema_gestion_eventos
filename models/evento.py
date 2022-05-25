@@ -8,7 +8,6 @@ class Evento(db.Model):
     eve_fecha = db.Column(db.DateTime, nullable=False)
     
     def __init__(self, eve_codigo, eve_nombre, eve_entradas, eve_fecha):
-        # self.eve_id = eve_id
         self.eve_codigo = eve_codigo
         self.eve_nombre = eve_nombre
         self.eve_entradas = eve_entradas

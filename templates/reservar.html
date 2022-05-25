@@ -15,7 +15,7 @@
                 {%  with mensajes = get_flashed_messages() %}
                 {% if mensajes %}
                 {% for mensaje in mensajes  %}
-                <p>{{ mensaje }}</p>
+                <p class="p-mensaje">{{ mensaje }}</p>
                 {% endfor %}
                 {% endif %}
                 {% endwith %}
@@ -30,13 +30,10 @@
                     <input type="number" name="num_entradas" class="entradas" id="entradas" placeholder="Número de entradas" required>
                     <input type="hidden" name="fecha" class="fecha" id="fecha" placeholder="Fecha del evento" required>
                 </fieldset>
-                <input type="submit" value="Registrar" class="registrar" id="registrar">
+                <input type="submit" value="Reservar" class="btn btn-reservar" id="registrar">
 
 
             </form>
-        </div>
-        <div class="noticias">
-            <p>Próximos eventos</p>
         </div>
 
 

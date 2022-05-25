@@ -11,7 +11,7 @@
             {%  with mensajes = get_flashed_messages() %}
             {% if mensajes %}
             {% for mensaje in mensajes  %}
-            <p>{{ mensaje }}</p>
+            <p class="p-mensaje">{{ mensaje }}</p>
             {% endfor %}
             {% endif %}
             {% endwith %}
@@ -37,14 +37,10 @@
                             <td>{{ evento.eve_entradas }} </td>
                             <td>{{ evento.eve_fecha }} </td>
                         </tr>
-                    {% endfor %}
-                   
+                    {% endfor %} 
                 </tbody>
-    
                 <tfoot>
-    
                 </tfoot>
-    
             </table>
         </div>
 
