@@ -42,7 +42,14 @@ def insertar():
         #Inserto objeto de evento a la sesion, (paso valores)
         db.session.add(objEvento)
         db.session.commit() #confirmo inserción 
+<<<<<<< HEAD
         return redirect(url_for('index'))       
+=======
+        # evento = objEvento.query.all() #guardo en la db 
+        #return "correcto"
+        flash('evento creado satisfactoriamente')        
+        return redirect(url_for('index'))  
+>>>>>>> ab0cd8c400d9c7702a89b8635f64e8afe734969d
     except Exception as ex:
         return "error"
 
